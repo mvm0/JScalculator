@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="project.css">
+    </head>
+    <body>
+        <canvas id="canvasAnim"></canvas>
+
+
+        <main class="calculator">
+
+                <section class="screen">
+                        <div class="summary"></div>
+                        <div class="total">0</div>
+                </section>
+
+                <section class="buttons">
+                    <div class="numbers">
+                            <button class="clear">c</button>
+                            <button class="sc">(</button>
+                            <button class="sc">)</button>
+                            <button class="dop">>></button>
+                            <button class="7">7</button>
+                            <button class="8">8</button>
+                            <button class="9">9</button>
+
+                            <button class="4">4</button>
+                            <button class="5">5</button>
+                            <button class="6">6</button>
+
+                            <button class="one">1</button>
+                            <button class="two">2</button>
+                            <button class="three">3</button>
+                            <button class="null">0</button>
+                            <button class=".">.</button>
+                    </div>
+
+                    <div class="operators">
+                                <button class="division">÷</button>
+                                <button class="multiplication">×</button>
+                                <button class="subtraction">-</button>
+                                <button class="addition">+</button>
+                                <button class="equal">=</button>
+                    </div>
+
+                    <div class="dopOperators">
+                            <button class="pow">x²</button>
+                            <button class="squareRoot">√x</button>
+                            <button class="oneDivisionX">1/x</button>
+                            <button class="proc">%</button>
+                    </div>
+
+                    <div class="trigon">
+                        <button class="sin">sin</button>
+                        <button class="cos">cos</button>
+                        <button class="tg">tan</button>
+                        <button class="ctg">ctg</button>
+                    </div>
+                </section>
+
+            </main>
+
+        <script defer src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/granim/1.1.1/granim.min.js"></script>
+        <script defer src="grad.js"></script>
+        <script defer src="project.js"></script>
+    </body>
+</html>
