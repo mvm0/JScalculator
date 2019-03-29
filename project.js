@@ -1,47 +1,45 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $('.calculator').delay(500).fadeIn(2500);
 });
 
-$('.dop').click(function(){
-    if($('.dop').html() == '&gt;&gt;')
-    {
+$('.dop').click(function () {
+    if ($('.dop').html() == '&gt;&gt;') {
         $('.dop').html('<<');
-        $('.calculator').animate({width:'540px'},500, function(){$('.dopOperators').fadeToggle(500, function(){$('.trigon').fadeToggle(500);});});
-        $('.equal').animate({width:'270px'});
+        $('.calculator').animate({ width: '540px' }, 500, function () { $('.dopOperators').fadeToggle(500, function () { $('.trigon').fadeToggle(500); }); });
+        $('.equal').animate({ width: '270px' });
     }
-    else
-    {
+    else {
         $('.dop').html('>>');
-        $('.trigon').fadeToggle(500, function(){ $('.dopOperators').fadeToggle(500, function(){$('.calculator').animate({width:'360px'},500);})});
-        $('.equal').animate({width:'90px'});
+        $('.trigon').fadeToggle(500, function () { $('.dopOperators').fadeToggle(500, function () { $('.calculator').animate({ width: '360px' }, 500); }) });
+        $('.equal').animate({ width: '90px' });
     }
 });
 
-$('.numbers').click(function(e){
-    if($(this).find("button:focus").html())
+$('.numbers').click(function (e) {
+    if ($(this).find("button:focus").html())
         number($(this).find("button:focus").html());
 });
 
-$('.operators').click(function(e){
-    if($(this).find("button:focus").html())
+$('.operators').click(function (e) {
+    if ($(this).find("button:focus").html())
         operat($(this).find("button:focus").html());
 });
 
-$('.dopOperators').click(function(e){
-    if($(this).find("button:focus").html())
+$('.dopOperators').click(function (e) {
+    if ($(this).find("button:focus").html())
         operat($(this).find("button:focus").html());
 });
 
-$('.trigon').click(function(e){
-    if($(this).find("button:focus").html())
+$('.trigon').click(function (e) {
+    if ($(this).find("button:focus").html())
         operat($(this).find("button:focus").html());
 });
 
-$(document).keypress(function(e){
+$(document).keypress(function (e) {
     e.preventDefault();
-    if(e.which > 47 && e.which < 58)
+    if (e.which > 47 && e.which < 58)
         number(String(e.which - 48));
-    switch(e.which) {
+    switch (e.which) {
         case 43: operat('+'); break;
         case 45: operat('-'); break;
         case 42: operat('×'); break;
@@ -54,196 +52,155 @@ $(document).keypress(function(e){
     }
 });
 
-$(document).keyup(function(e){
-    if(e.which == 8 || e.which == 46)
+$(document).keyup(function (e) {
+    if (e.which == 8 || e.which == 46)
         number('c');
 });
 
 var dot = false;
 var leftsc = 0;
-function number(elem)
-{
+function number(elem) {
     let lastChar = ($('.summary').html())[$('.summary').html().length - 1];
-    switch(elem) {
-        case '0': appendSym(elem); break;
-        case '1': appendSym(elem); break;
-        case '2': appendSym(elem); break;
-        case '3': appendSym(elem); break;
-        case '4': appendSym(elem); break;
-        case '5': appendSym(elem); break;
-        case '6': appendSym(elem); break;
-        case '7': appendSym(elem); break;
-        case '8': appendSym(elem); break;
-        case '9': appendSym(elem); break;
+    switch (elem) {
+        case '0': appendSum(elem); break;
+        case '1': appendSum(elem); break;
+        case '2': appendSum(elem); break;
+        case '3': appendSum(elem); break;
+        case '4': appendSum(elem); break;
+        case '5': appendSum(elem); break;
+        case '6': appendSum(elem); break;
+        case '7': appendSum(elem); break;
+        case '8': appendSum(elem); break;
+        case '9': appendSum(elem); break;
 
         case 'c':
             $('.summary').html('');
             $('.total').html('0');
             dot = false;
             leftsc = 0;
-        break;
+            break;
 
         case '.':
-            if(!dot && lastChar != '+' && lastChar != '-' && lastChar != '÷' && lastChar != '×' && lastChar != '%')
-            {
+            if (!dot && lastChar != '+' && lastChar != '-' && lastChar != '÷' && lastChar != '×' && lastChar != '%') {
                 dot = true;
-                appendSym(elem);
+                appendSum(elem);
             }
-        break;
+            break;
 
         case '(':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym(elem);
+            if (lastChar != '0' && lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7' && lastChar != '8' && lastChar != '9') {
+                appendSum(elem);
                 leftsc++;
             }
-        break;
+            break;
         case ')':
-            if ((+lastChar >= 0 && +lastChar <= 9) || lastChar == ')')
-            {
-                if(leftsc > 0)
-                {
-                appendSym(elem);
-                leftsc--;
+            if ((+lastChar >= 0 && +lastChar <= 9) || lastChar == ')') {
+                if (leftsc > 0) {
+                    appendSum(elem);
+                    leftsc--;
                 }
             }
-        break;
+            break;
     }
 }
 
-function operat(elem)
-{
+function operat(elem) {
     let lastChar = ($('.summary').html())[$('.summary').html().length - 1];
-    switch(elem) {
+    switch (elem) {
         case '+':
-        if ($('.summary').html() != 0 && lastChar != '+')
-        {
-            if(lastChar == '-' || lastChar == '×' || lastChar == '÷' || lastChar == '%')
-            $('.summary').html($('.summary').html().slice(0,-1));
-            appendSym(elem);
-            dot = false;
-        }
-        break;
+            if ($('.summary').html() != 0 && lastChar != '+') {
+                if (lastChar == '-' || lastChar == '×' || lastChar == '÷' || lastChar == '%')
+                    $('.summary').html($('.summary').html().slice(0, -1));
+                appendSum(elem);
+                dot = false;
+            }
+            break;
         case '-':
-        if ($('.summary').html() != 0 && lastChar != '-')
-        {
-            if(lastChar == '+' || lastChar == '×' || lastChar == '÷' || lastChar == '%')
-                $('.summary').html($('.summary').html().slice(0,-1));
-            appendSym(elem);
-            dot = false;
-        }
-        break;
+            if ($('.summary').html() != 0 && lastChar != '-') {
+                if (lastChar == '+' || lastChar == '×' || lastChar == '÷' || lastChar == '%')
+                    $('.summary').html($('.summary').html().slice(0, -1));
+                appendSum(elem);
+                dot = false;
+            }
+            break;
         case '×':
-        if ($('.summary').html() != 0 && lastChar != '×')
-        {
-            if(lastChar == '-' || lastChar == '+' || lastChar == '÷' || lastChar == '%')
-            $('.summary').html($('.summary').html().slice(0,-1));
-            appendSym(elem);
-            dot = false;
-        }
-        break;
+            if ($('.summary').html() != 0 && lastChar != '×') {
+                if (lastChar == '-' || lastChar == '+' || lastChar == '÷' || lastChar == '%')
+                    $('.summary').html($('.summary').html().slice(0, -1));
+                appendSum(elem);
+                dot = false;
+            }
+            break;
         case '÷':
-        if ($('.summary').html() != 0 && lastChar != '÷')
-        {
-            if(lastChar == '+' || lastChar == '×' || lastChar == '-' || lastChar == '%')
-                $('.summary').html($('.summary').html().slice(0,-1));
-            appendSym(elem);
-            dot = false;
-        }
-        break;
+            if ($('.summary').html() != 0 && lastChar != '÷') {
+                if (lastChar == '+' || lastChar == '×' || lastChar == '-' || lastChar == '%')
+                    $('.summary').html($('.summary').html().slice(0, -1));
+                appendSum(elem);
+                dot = false;
+            }
+            break;
         case '%':
-        if ($('.summary').html() != 0 && lastChar != '%')
-        {
-            if(lastChar == '+' || lastChar == '×' || lastChar == '-' || lastChar == '÷')
-                $('.summary').html($('.summary').html().slice(0,-1));
-            appendSym(elem);
-            dot = false;
-        }
-        break;
+            if ($('.summary').html() != 0 && lastChar != '%') {
+                if (lastChar == '+' || lastChar == '×' || lastChar == '-' || lastChar == '÷')
+                    $('.summary').html($('.summary').html().slice(0, -1));
+                appendSum(elem);
+                dot = false;
+            }
+            break;
         case 'x²':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym("pow(");
-                leftsc++;
-                dot = false;
-            }
-        break;
+            unaryOperators(lastChar, "pow(");
+            break;
         case '√x':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym("sqrt(");
-                leftsc++;
-                dot = false;
-            }
-        break;
+            unaryOperators(lastChar, "sqrt(");
+            break;
         case '1/x':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym("1/(");
-                leftsc++;
-                dot = false;
-            }
-        break;
+            unaryOperators(lastChar, "1/(");
+            break;
         case 'sin':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym("sin(");
-                leftsc++;
-                dot = false;
-            }
-        break;
+            unaryOperators(lastChar, "sin(");
+            break;
         case 'cos':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym("cos(");
-                leftsc++;
-                dot = false;
-            }
-        break;
+            unaryOperators(lastChar, "cos(");
+            break;
         case 'tan':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym("tan(");
-                leftsc++;
-                dot = false;
-            }
-        break;
+            unaryOperators(lastChar, "tan(");
+            break;
         case 'ctg':
-            if (lastChar != '0' &&  lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7'&& lastChar != '8' && lastChar != '9')
-            {
-                appendSym("ctg(");
-                leftsc++;
-                dot = false;
-            }
-        break;
+            unaryOperators(lastChar, "ctg(");
+            break;
         case '=':
             let res = $('.summary').html();
-            if(lastChar == '.')
+            if (lastChar == '.')
                 res = res.replace(/.$/, '')
-            if(leftsc > 0 )
+            if (leftsc > 0)
                 $('.total').html("Ошибка скобок");
-            if(res)
-            {
+            if (res) {
                 res = res.replace(/×/g, '*').replace(/÷/g, '/');
                 res = res.replace(/sqrt/g, 'Math.sqrt').replace(/pow/g, 'POW');
                 res = res.replace(/sin/g, 'Math.sin').replace(/cos/g, 'Math.cos').replace(/tan/g, 'Math.cos').replace(/ctg/g, 'CTG');
-                alert(res);
-                $('.total').html(eval(res).toFixed(2));
-                
+                $('.total').html(eval(res));
             }
-        break;
+            break;
     }
 }
 
-function  POW(x){
-    return x*x;
+function unaryOperators(lastChar, operatorName) {
+    if (lastChar != '0' && lastChar != '1' && lastChar != '2' && lastChar != '3' && lastChar != '4' && lastChar != '5' && lastChar != '6' && lastChar != '7' && lastChar != '8' && lastChar != '9') {
+        appendSum(operatorName);
+        leftsc++;
+        dot = false;
+    }
 }
 
-function  CTG(x){
-    return 1/(Math.tan(x));
+function POW(x) {
+    return x * x;
 }
 
-function appendSym(elem){
-    if($('.summary').html().length < 30)
+function CTG(x) {
+    return 1 / (Math.tan(x));
+}
+
+function appendSum(elem) {
+    if ($('.summary').html().length < 30)
         $('.summary').append(elem);
 }
